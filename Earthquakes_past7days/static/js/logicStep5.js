@@ -1,11 +1,11 @@
-// We create the tile layer that will be the background of our map.
+// Tile layer that will be the background of our map.
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     accessToken: API_KEY
 });
 
-// We create the tile layer that will be the background of our map.
+// Tile layer that will be the background of our map.
 let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -21,8 +21,7 @@ let baseMaps = {
 // Create the earthquake layer for our map.
 let earthquakes = new L.layerGroup();
 
-// We define an object that contains the overlays.
-// This overlay will be visible all the time.
+// Define an object that contains the overlays. This overlay will be visible all the time.
 let overlays = {
     Earthquakes: earthquakes
   };
@@ -43,9 +42,8 @@ var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.ge
 // Plot the data to the map
 d3.json(url).then(function(data) {
 
-    // This function returns the style data for each of the earthquakes we plot on
-    // the map. We pass the magnitude of the earthquake into a function
-    // to calculate the radius.
+    // This function returns the style data for each of the earthquakes we plot on the map. 
+    //We pass the magnitude of the earthquake into a function to calculate the radius.
     function styleInfo(feature) {
         return {
         opacity: 1,
@@ -104,7 +102,7 @@ d3.json(url).then(function(data) {
     }).addTo(earthquakes);
 });
 
-// Then add the layer earthquakes to map
+// Add the layer earthquakes to map
 earthquakes.addTo(map);
 
 // Create a legend control object.
@@ -112,7 +110,7 @@ let legend = L.control({
     position: "bottomright"
 });
 
-// Then add all the details for the legend.
+// legend details.
 legend.onAdd = function() {
     let div = L.DomUtil.create("div", "info legend");
     const magnitudes = [0, 1, 2, 3, 4, 5];
@@ -125,10 +123,10 @@ legend.onAdd = function() {
     "#ea2c2c"
     ];
 
-    // Looping through our intervals to generate a label with a colored square for each interval.
+    // Loop for legend
    for (var i = 0; i < magnitudes.length; i++) {
-    div.innerHTML +=
-      "<i style='background: " + colors[i] + "'>&emsp;</i> " +
+    div.innerHTML += "<i style='background: " + colors[i] + "'>&emsp;</i> " +
+      //this line of code is responsible for the legend buckets
       magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
  }
   return div;
